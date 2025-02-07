@@ -1,15 +1,8 @@
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
-from airflow.operators.bash import BashOperator
 from datetime import datetime
 import pandas as pd
 import csv
-
-#import subprocess
-#import sys
-#subprocess.check_call([sys.executable, "-m", "pip", "install", "pymongo"])
-
-#from pymongo import MongoClient
 
 
 def extract_data(ti):
@@ -49,8 +42,4 @@ schedule_interval='0 6 * * *', # Run every day at 6:00 AM
 )
 
 # Create tasks
-#install_task = BashOperator(task_id='install',bash_command="python -m pip install pymongo")
 extract_task = PythonOperator(task_id='extract',python_callable=extract_data,dag=dag)
-
-# Set the order
-#install_task>>extract_task
